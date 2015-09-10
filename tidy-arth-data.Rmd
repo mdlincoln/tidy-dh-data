@@ -106,7 +106,7 @@ clean_data_artist %>% kable()
 clean_data_tags %>% kable()
 ```
 
-## We can rejoin based on our question
+---
 
 ```{r, echo=TRUE}
 clean_data_obj %>% 
@@ -115,12 +115,14 @@ clean_data_obj %>%
   kable()
 ```
 
-## We can rejoin based on our question
+---
 
 ```{r, echo = TRUE}
 clean_data_obj %>% 
-  inner_join(clean_data_artist, by = "acq_no") %>% 
-  ggplot(aes(x = name, fill = qualification)) + geom_bar()
+  inner_join(clean_data_artist, by = "acq_no") %>%
+  filter(is.na(qualification) | qualification != "studio of") %>% 
+  ggplot(aes(x = name, y = date, color = date_qual)) + 
+  geom_point(size = 5)
 ```
 
 # Documenting tidy data
