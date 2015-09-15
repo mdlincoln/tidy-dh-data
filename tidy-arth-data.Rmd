@@ -192,8 +192,8 @@ Omeka and the like are great for interactively communicating stories and selecti
 ## Resources
 
 - Database management
-  - [Google Fusion Tables]()
-  - [UCLA DH101: Data and Databases](http://dh101.humanities.ucla.edu/?page_id=93)
-  - [Designing Databases for Historical Research](http://port.sas.ac.uk/mod/book/view.php?id=75) (great intro to relational DBs)
+    - [Google Fusion Tables](https://www.google.com/fusiontables/)
+    - [UCLA DH101: Data and Databases](http://dh101.humanities.ucla.edu/?page_id=93)
+    - [Designing Databases for Historical Research](http://port.sas.ac.uk/mod/book/view.php?id=75) (great intro to relational DBs)
 - Data cleaning
-  - [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine)
+    - [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine)
