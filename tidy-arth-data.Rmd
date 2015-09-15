@@ -163,19 +163,31 @@ clean_data_obj %>%
 
 # Sharing tidy data
 
+## Flat Files, Not Live Servers
+
+Omeka and the like are great for interactively communicating stories and selections from your research. They are not a storage and dissemination solution _in the long run_. Costly, fragile, limiting.
+
+"Flat files" are decoupled from running software, and can be opened by a regular text editor. Someone without your original software has a better chance of recovering the information.
+
 ## Plaintext
 
 - Use plaintext file types for tables and docs (`.txt`, `.csv`, not `.xslx`)
-- Creating in Excel/Google Sheets is fine
-- Don't use menaingful formatting - it won't survive 
-
-## Bundle it
-
-- Bundle data and documentation
+    - Free
+    - Somewhat more future-proof
+    - Trackable
+- Creating in Excel/Google Sheets is fine, you can export it
+    - When saving in Excel, use `UTF-8` so that accents & special characters are preserved
+- Don't use menaingful formatting (colored cells, bold, italics, borders)
+- Save multiple versions
 
 ## Archive it
 
-- Use git
+- Bundle data and documentation in the same directory and zip them.
+- Distribute
+    - Institutional repository (upload it with your dissertation)
+    - Journal websites
+    - [Zenodo](https://zenodo.org/)
+    - [Git](https://git-scm.com/) (works great with all-text files - more and more libraries and journals will be moving towards this method for tracking file versions)
 
 ## Resources
 
