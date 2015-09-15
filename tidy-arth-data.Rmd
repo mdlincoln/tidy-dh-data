@@ -24,6 +24,12 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, echo=FALSE)
 1. One value per cell
 1. Consistent data types
 
+## Why?
+
+1. Make it easy to analyze at scale
+2. Make it easy to share
+3. Make it easy to recombine with other data
+
 ## What might our data look like?
 
 ```{r raw_sales}
