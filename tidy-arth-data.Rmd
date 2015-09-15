@@ -143,6 +143,23 @@ clean_data_obj %>%
     - how to cite it
     - licensing for reuse
 
+## Show your work
+
+- Describe what you made:
+    - Keep a plain text doc in the same directory as your tables
+    - Have a heading for each table
+    - List every column name and describe what it means
+        - Incl. list of possible values, relation to other tables as appropriate
+- Document the process
+    - Did you adapt this from another dataset? (incl. original data, or link)
+    - Describe the transformations you made, including what software you used
+
+## Make changes programmatically
+
+- [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine) exports a JSON file with changes
+- R, Python code makes changes and documents them at the same time
+
+![r code comments](img/r_comments.png)
 
 # Sharing tidy data
 
