@@ -2,7 +2,7 @@
 title: "Tidy (Art Historical) Data"
 author: "Matthew Lincoln"
 date: "September 9, 2015"
-output: 
+output:
   ioslides_presentation:
     incremental: true
 ---
