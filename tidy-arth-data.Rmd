@@ -133,12 +133,16 @@ clean_data_obj %>%
 
 # Documenting tidy data
 
-## For future-you & for others | TBH mainly just for you
+## Do it for future-you & for others
 
-- Keep a plain text doc in the same directory as your tables
-- Have a heading for each table
-- List every column name and describe what it means (incl. list of possible values, relation to other tables)
-- Note decisions made (e.g. how a value was derived from a source doc)
+- You **will** forget what you did in a few monts. Or even a few days.
+    - Makes writing reports/articles easier, too!
+- Make your data reusable
+    - others won't have to guess at what a certain column means
+    - what decisions you made when recording it
+    - how to cite it
+    - licensing for reuse
+
 
 # Sharing tidy data
 
