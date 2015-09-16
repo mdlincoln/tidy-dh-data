@@ -19,6 +19,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, echo=FALSE)
 
 1. One concept per table
 1. One variable per column
+1. One observation per row
 1. One value per cell
 1. Consistent data types
 
