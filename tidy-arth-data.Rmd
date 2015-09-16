@@ -15,7 +15,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, echo=FALSE)
 
 # Making a tidy table
 
-## What _is_ tidy data?
+## What is tidy data?
 
 1. One concept per table
 1. One variable per column
