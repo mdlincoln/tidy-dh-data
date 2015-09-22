@@ -98,6 +98,8 @@ messy_data %>% kable()
 
 ## Objects
 
+Three conceptual tables: objects, artist links, and tags.
+
 ```{r}
 clean_data_obj %>% kable()
 ```
