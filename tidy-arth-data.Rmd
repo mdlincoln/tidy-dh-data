@@ -158,9 +158,9 @@ clean_data_obj %>%
 
 ## Do it for future-you & for others
 
-- You **will** forget what you did in a few monts. Or even a few days. Docs will remind you.
+- You **will** forget what you did in a few months. Or even a few days. Docs will remind you.
 - Docs make writing reports/articles easier
-- Docs make your data reusable
+- Docs make your data reusable:
     - others won't have to guess at what a certain column means
     - or what decisions you made when recording it
     - or how to cite it
@@ -187,10 +187,10 @@ Omeka and the like are great for interactively communicating stories and selecti
 
 ## Plaintext
 
-- Use plaintext file types for tables and docs (`.txt`, `.csv`, not `.xslx`)
+- Use plain text file types for tables and docs (`.txt`, `.csv`, not `.xslx`)
     - Free
     - Somewhat more future-proof
-    - Trackable
+    - Track-able
 - Creating in Excel/Google Sheets is fine, you can export it
     - When saving in Excel, use `UTF-8` so that accents & special characters are preserved
     - Don't rely on meaningful formatting (colored cells, bold, italics, borders), because that won't be preserved
