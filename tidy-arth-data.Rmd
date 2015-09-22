@@ -208,6 +208,7 @@ Omeka and the like are great for interactively communicating stories and selecti
 
 ## Resources
 
+- [See a tidy data example](https://github.com/mdlincoln/tidy-arth-data/tree/gh-pages/example_data)
 - Database management
     - [Google Fusion Tables](https://www.google.com/fusiontables/)
     - [UCLA DH101: Data and Databases](http://dh101.humanities.ucla.edu/?page_id=93)
