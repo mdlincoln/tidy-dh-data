@@ -17,11 +17,10 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, echo=FALSE)
 
 ## What is tidy data?
 
-1. One concept per table
 1. One variable per column
 1. One observation per row
-1. One value per cell
 1. Consistent data types
+1. If you can't do 1 and 2, that means you need an extra table
 
 ## Why?
 
@@ -29,9 +28,7 @@ knitr::opts_chunk$set(message=FALSE, warning=FALSE, echo=FALSE)
 2. Make it easy to share
 3. Make it easy to recombine with other data
 
-## What might our data look like?
-
-```{r raw_sales}
+```{r raw_sales, include=FALSE}
 messy_data <- data_frame(
   acq_no = c("1999.32", "1908.54", "1955.32", "1955.33"),
   artist_1 = c("Studio of Rembrandt", "Jan Vermeer", "Vermeer, Jan", "Hals, Frans"),
@@ -60,9 +57,15 @@ clean_data_tags <- data_frame(
   acq_no = c("1999.32", "1999.32", "1908.54", "1908.54", "1955.32", "1955.32", "1955.32", "1955.33"),
   tag = c("religious", "portrait", "genre", "woman", "woman", "window", "painting", "merry_company")
 )
+```
 
+## Messy (but well-intentioned!) data
+
+```{r}
 messy_data %>% kable()
 ```
+
+- On the plus side, there is a unique ID column!
 
 ## One variable per column
 
@@ -74,13 +77,13 @@ messy_data %>% kable()
 - `date`: conditionals
 - `medium`: medium and support combined; conditionals
 
-## One value per cell
+## One observation per row
 
 ```{r}
 messy_data %>% kable()
 ```
 
-- `tags` needs to be its own table
+- `tags` and `artists` need to be their own tables
 
 ## Consistent types and values
 
