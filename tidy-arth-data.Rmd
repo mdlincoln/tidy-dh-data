@@ -118,16 +118,19 @@ clean_data_tags %>% kable()
 
 ---
 
+By separating out tables, we can be more flexible with the types of questions we can ask.
+
 ```{r, echo=TRUE}
+# What paintings have the tag "woman"?
 clean_data_obj %>% 
   inner_join(clean_data_tags, by = "acq_no") %>% 
-  filter(tag == "woman") %>% 
-  kable()
+  filter(tag == "woman") %>% kable()
 ```
 
 ---
 
 ```{r, echo = TRUE}
+# How are these objects distrubted in time?
 clean_data_obj %>% 
   inner_join(clean_data_artist, by = "acq_no") %>%
   filter(is.na(qualification) | qualification != "studio of") %>% 
