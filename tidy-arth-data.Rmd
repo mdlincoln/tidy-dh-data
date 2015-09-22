@@ -177,13 +177,6 @@ clean_data_obj %>%
     - Did you adapt this from another dataset? (incl. original data, or link)
     - Describe the transformations you made, including what software you used
 
-## Make changes programmatically
-
-- [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine) exports a JSON file with changes
-- R, Python code makes changes and documents them at the same time
-
-![r code comments](img/r_comments.png)
-
 # Sharing tidy data
 
 ## Flat Files, Not Live Servers
