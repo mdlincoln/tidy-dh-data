@@ -158,13 +158,13 @@ clean_data_obj %>%
 
 ## Do it for future-you & for others
 
-- You **will** forget what you did in a few monts. Or even a few days.
-    - Makes writing reports/articles easier, too!
-- Make your data reusable
+- You **will** forget what you did in a few monts. Or even a few days. Docs will remind you.
+- Docs make writing reports/articles easier
+- Docs make your data reusable
     - others won't have to guess at what a certain column means
-    - what decisions you made when recording it
-    - how to cite it
-    - licensing for reuse
+    - or what decisions you made when recording it
+    - or how to cite it
+    - or if/how they may reuse it
 
 ## Show your work
 
