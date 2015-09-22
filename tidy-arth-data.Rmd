@@ -130,7 +130,7 @@ clean_data_obj %>%
 ---
 
 ```{r, echo = TRUE}
-# How are these objects distrubted in time?
+# When was each painter working?
 clean_data_obj %>% 
   inner_join(clean_data_artist, by = "acq_no") %>%
   filter(is.na(qualification) | qualification != "studio of") %>% 
@@ -140,18 +140,19 @@ clean_data_obj %>%
 
 ## Tips for Historical Datasets
 
+- Use a structured vocabulary when there are a limited number of possible values for a column. This allows easier counting and better consistency across your data.
 - Be consistent with date formats.
     - If you have day-level info for some entries, and only year level for others, think about putting in `1701-01-01`, or have separate columns for year, month, day.
     - Do some records have a start and end date? Have a `start_date` and `end_date`
+- A loose "notes" column is fine, but if you find yourself frequently making a similar type of note (e.g. `citation`) then you probably need to make a new column just for that information.
+
+## Tips for Historical Datasets II
+
 - "Uncertain" values
     - `[?]` is not informative. What about: `illegible`, `unsubstantiated`, `approximate`?
     - Make an uncertainty vocabulary if you have to, so the terms are controlled, countable, and documented
     - Use separate columns liberally, e.g. `date`, `date_uncertainty`
-    
-## Tips for Historical Datasets II
-
-- A loose "notes" column is fine, but if you find yourself frequently making a similar type of note (e.g. `citation`) then you probably need to make a new column just for that information.
-- You can't document everything! If some tricky field is just not relevant to your research, then drop it.
+- You can't document everything! If some tricky field is just not relevant enough to your research, then don't kill yourself trying to capture it with perfect specificity.
 - **It is easy to recombine columns later. It is very hard to split them out.**
 
 # Documenting tidy data
