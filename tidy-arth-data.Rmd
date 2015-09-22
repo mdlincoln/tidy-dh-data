@@ -193,8 +193,8 @@ Omeka and the like are great for interactively communicating stories and selecti
     - Trackable
 - Creating in Excel/Google Sheets is fine, you can export it
     - When saving in Excel, use `UTF-8` so that accents & special characters are preserved
-- Don't use menaingful formatting (colored cells, bold, italics, borders)
-- Save multiple versions
+    - Don't rely on meaningful formatting (colored cells, bold, italics, borders), because that won't be preserved
+    - Save multiple versions
 
 ## Archive it
 
@@ -211,5 +211,4 @@ Omeka and the like are great for interactively communicating stories and selecti
     - [Google Fusion Tables](https://www.google.com/fusiontables/)
     - [UCLA DH101: Data and Databases](http://dh101.humanities.ucla.edu/?page_id=93)
     - [Designing Databases for Historical Research](http://port.sas.ac.uk/mod/book/view.php?id=75) (great intro to relational DBs)
-- Data cleaning
-    - [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine)
+- Data cleaning with [OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine)
