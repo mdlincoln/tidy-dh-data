@@ -6,5 +6,7 @@ A small presentation for the [Digital Humanities Literacy Workshop](https://dsha
 
 ![example sale catalog](img/catalogueofhighl00chri_0016.jpg)
 
+(above page from <https://archive.org/details/catalogueofhighl00chri/page/n13>)
+
 ---
 [Matthew D. Lincoln](https://matthewlincoln.net)
