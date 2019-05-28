@@ -1,3 +1,6 @@
 # tidy-arth-data
 
-A small presentation for the [Michelle Smith Collabortory for Visual Culture](http://michellesmithcollaboratory.umd.edu/) at UMD on 23 September 2015.
+A small presentation for the [Digital Humanities Literacy Workshop](https://dsharp-cmu.github.io/DH-Literacy-Workshop-at-CMU-2019/) at Carnegie Mellon University, May 2019.
+
+---
+[Matthew D. Lincoln](https://matthewlincoln.net)
