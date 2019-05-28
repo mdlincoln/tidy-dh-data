@@ -4,5 +4,7 @@ A small presentation for the [Digital Humanities Literacy Workshop](https://dsha
 
 [Example dataset](https://github.com/mdlincoln/tidy-dh-data/tree/gh-pages/example_data)
 
+![example sale catalog](img/catalogueofhighl00chri_0016.jpg)
+
 ---
 [Matthew D. Lincoln](https://matthewlincoln.net)
