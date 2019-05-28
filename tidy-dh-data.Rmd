@@ -7,7 +7,7 @@ output:
     df_print: kable
     slide_level: 2
     fig_width: 6
-    fig_height: 3.5
+    fig_height: 3
     fig_caption: true
 ---
 
@@ -58,7 +58,7 @@ messy_data <- tibble(
   tags = c("religious, portrait", "domestic scene and women", "woman at window, portrait", "portraiture")
 )
 
-clean_data_obj <- tibble(
+artworks <- tibble(
   acq_no = messy_data$acq_no,
   medium = rep("oil", 4),
   support = c("canvas", "panel", "canvas", "canvas"),
@@ -99,7 +99,7 @@ Here, `medium` contains info on:
 ## Example 1
 
 ```{r}
-clean_data_obj %>% kable()
+artworks %>% kable()
 ```
 - separated different concepts into columns
 - standardized vocabulary for each concept
@@ -112,7 +112,7 @@ messy_data %>% select(acq_no,artist) %>% kable()
 ```
 >- artist column tells us more than just a name - it also has qualifiers.
 
-## Exmaple 2
+## Example 2
 
 One possibility:
 
@@ -177,7 +177,7 @@ clean_data_tags <- tribble(
 kable(clean_data_tags)
 ```
 
-- Standardize each invidiual tag
+- Standardize each individual tag
 - Use a common delimiter to keep them separate
 
 ## Example 1: delimiters
@@ -215,13 +215,13 @@ include_graphics("img/museum_object.png", dpi = 200)
 ```
 
 ```{r}
-museum_attributes <- tribble(
+museums <- tribble(
   ~museum, ~city,
   "Rijksmuseum", "Amsterdam",
   "Victoria & Albert", "London",
   "British Museum", "London"
 )
-museum_attributes
+museums
 ```
 
 ## Many-to-one
@@ -230,7 +230,7 @@ We perform a _left join_ (you'll see this in R, python, SQL, pretty much everywh
 
 ```{r, echo = TRUE}
 combined_data <- messy_data %>% 
-  left_join(museum_attributes, by = "museum")
+  left_join(museums, by = "museum")
 ```
 
 ```{r}
@@ -256,14 +256,14 @@ london_paintings %>% kable() %>% kable_styling(latex_options = "scale_down")
 We may well have biographical information about our artists
 
 ```{r}
-clean_artists <- tribble(
+artists <- tribble(
   ~name, ~birth_year,
   "Rembrandt", 1606,
   "Govaert Flinck", 1615,
   "Jan Vermeer", 1632,
   "Frans Hals", 1582
 )
-clean_artists
+artists
 ```
 
 ## Many-to-many
@@ -277,12 +277,12 @@ include_graphics("img/object_artist.png", dpi=250)
 ## Many-to-many
 
 ```{r}
-clean_creation <- tibble(
+creations <- tibble(
   acq_no = c("1999.32", "1999.32", "1908.54", "1955.32", "1955.33"),
   name = c("Rembrandt", "Govaert Flinck", "Jan Vermeer", "Jan Vermeer", "Frans Hals"),
   qualification = c("studio of", NA, NA, "possibly", NA)
 )
-clean_creation
+creations
 ```
 
 Note that painting `1999.32`, which has two artists, is repeated twice. And we can relate the qualifications (`studio of`, `possibly`) to specific artwork-artist pairs.
@@ -292,9 +292,9 @@ Note that painting `1999.32`, which has two artists, is repeated twice. And we c
 This lets us filter paintings based on their artists' biographical info
 
 ```{r, echo = TRUE}
-temp_table <- clean_data_obj %>% 
-  left_join(clean_creation) %>% 
-  left_join(clean_artists)
+temp_table <- artworks %>% 
+  left_join(creations) %>% 
+  left_join(artists)
 ```
 
 ```{r}
@@ -322,7 +322,7 @@ There's no one true way to encode date information. It depends on your use-case.
 2. How precise are your sources?
 3. How varied is that precision?
 
-## Pont vs. duration events
+## Point vs. duration events
 
 ```{r}
 tribble(
@@ -405,11 +405,11 @@ clean_data_dates <- tibble(
 clean_data_dates
 ```
 
-Here, I've expanded "circa" to mean around 5 years before or after. "after 1636" could have a number of different meantings depending on the context - maybe we can limit it based on the last year of the studio's activity. 
+Here, I've expanded "circa" to mean around 5 years before or after. "after 1636" could have a number of different meanings depending on the context - maybe we can limit it based on the last year of the studio's activity. 
 
 ## Gotchas
 
-- If you're dealing with times, not just dates... then watch out for timezones. Python and R both have specialized libraries for these.
+- If you're dealing with times, not just dates... then watch out for time zones. Python and R both have specialized libraries for these.
 - When hand entering dates, make sure to validate the dates! You will inevitably enter `YYYY-02-31`, which doesn't exist.
 
 # Uncertainty
@@ -427,7 +427,7 @@ What we can mostly handle are the known unknowns.
   - Was that info there, but illegible?
   - Did the document literally say `[?]`?
 - Mixing uncertainty across different fields
-  - i.e. having a checkmark to say a record is "done" isn't very informative
+  - i.e. having a check mark to say a record is "done" isn't very informative
   - Which part of the record is uncertain? The date? The artist?
 
 ## Uncertainty DOs
@@ -445,7 +445,7 @@ You can't document everything! If some tricky field is just not relevant enough 
 ## Be context-specific
 
 ```{r}
-clean_creation
+creations
 ```
 
 - standardize your terms if you can
@@ -461,7 +461,7 @@ Notes should usually have unique values. If they're often the same value, that m
 
 # Only go as far as you need to
 
-Data modeling can get infinitely complicated if you want to accomodate every possible use case. If you're not a museum or library, don't do that.
+Data modeling can get infinitely complicated if you want to accommodate every possible use case. If you're not a museum or library, don't do that.
 
 ```{r photo_model, fig.cap="Photo archives data model from https://linked.art"}
 include_graphics("img/photo_model.png", dpi=250)
@@ -471,7 +471,7 @@ include_graphics("img/photo_model.png", dpi=250)
 # Bringing it all back together
 
 ```{r}
-clean_data_obj <- messy_data %>% 
+artworks <- messy_data %>% 
   select(acq_no, museum) %>% 
   left_join(clean_data_tags, by = "acq_no") %>% 
   left_join(clean_data_dates, by = "acq_no") %>% 
@@ -489,7 +489,7 @@ include_graphics("img/full_erd.png", dpi=250)
 ## Count up the different tags used
 
 ```{r, echo=TRUE}
-clean_data_obj %>% 
+artworks %>% 
   separate_rows(tags, sep=";") %>% 
   ggplot(aes(x = tags)) + 
   geom_bar()
@@ -498,24 +498,25 @@ clean_data_obj %>%
 ## Tags based on year of creation
 
 ```{r, echo = TRUE}
-clean_data_obj %>% 
+artworks %>% 
   separate_rows(tags, sep=";") %>% 
-  left_join(museum_attributes, by = "museum") %>% 
-  ggplot(aes(ymin = year_early, ymax = year_late, x = tags, color = city, group = acq_no)) +
+  left_join(museums, by = "museum") %>% 
+  ggplot(aes(ymin = year_early, ymax = year_late, 
+             x = tags, color = city, group = acq_no)) +
   geom_errorbar(position="dodge", width = 0.2)
 ```
 
-We need to decide how to handle year of creation. Some visualizations let us incorporate timespan info, but we could also take the midpoint between the boundaries, depending on our question.
+We need to decide how to handle year of creation. Some visualizations let us incorporate time-span info, but we could also take the midpoint between the boundaries, depending on our question.
 
 ## Network of artists who worked together and when
 
-Joining a table to itself can give us combinations of artists who worked together on the same artwork. This could be used to create a network dataset to analyze.
+Joining a table to itself can give us combinations of artists who worked together on the same artwork. This could be used to create a network data set to analyze.
 
 ```{r, echo = TRUE}
-clean_creation %>% 
-  left_join(clean_creation, by = "acq_no") %>% 
+creations %>% 
+  left_join(creations, by = "acq_no") %>% 
   filter(name.x != name.y) %>% 
-  left_join(clean_data_obj, by = "acq_no") %>% 
+  left_join(artworks, by = "acq_no") %>% 
   select(acq_no, name.x, name.y, year_early, year_late)
 ```
 
@@ -527,9 +528,17 @@ Group 1: https://tinyurl.com/cmudh-2019-tidy1
 
 Group 2: https://tinyurl.com/cmudh-2019-tidy2
 
-Working in groups, draft a data scheme for encoding this auction catalogue. Aside from the obvious, think about:
-  - can we encode who's owned the artwork before?
-  - what are different ways to categorize the content of the descriptions?
+Working in groups, draft a data scheme for encoding this auction catalog. Aside from the obvious, think about:
+
+- can we encode who's owned the artwork before?
+- what are different ways to categorize the content of the descriptions?
+
+# Linking data
+
+Using shared vocabularies between data sets
+
+- <https://vocab.getty.edu>
+- <https://programminghistorian.org/en/lessons/intro-to-linked-data>
 
 # Documenting tidy data
 
@@ -551,7 +560,7 @@ Working in groups, draft a data scheme for encoding this auction catalogue. Asid
     - List every column name and describe what it means
         - Incl. list of possible values, relation to other tables as appropriate
 - Document the process
-    - Did you adapt this from another dataset? (incl. original data, or link)
+    - Did you adapt this from another data set? (incl. original data, or link)
     - Describe the transformations you made, including what software you used
 
 ## Documentation format
@@ -573,7 +582,7 @@ col 2 - definition
 col 3 - joining id with table 1 - col 2
 ```
 
-## Plaintext
+## Plain text
 
 - Use plain text file types for tables and docs (`.txt`, `.csv`, not `.xslx`)
     - Free
@@ -596,7 +605,7 @@ col 3 - joining id with table 1 - col 2
 # Resources
 
 - [Building out tidy data using Google Sheets](https://matthewlincoln.net/2018/03/26/best-practices-for-using-google-sheets-in-your-data-project.html)
-- [AirTable]() is a decent . google-sheets-like option for building out multi-table relational databases.
+- [AirTable](https://airtable.com/) is a decent, Google-sheets-like option for building out multi-table relational databases.
 - [See a tidy data example](https://github.com/mdlincoln/tidy-dh-data/tree/gh-pages/example_data)
 - Database management
     - [UCLA DH101: Data and Databases](http://dh101.humanities.ucla.edu/?page_id=93)
