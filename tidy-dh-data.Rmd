@@ -1,7 +1,7 @@
 ---
 title: "Tidy Humanities Data"
 author: "Matthew Lincoln"
-date: "May 28, 2019"
+date: "May 30, 2019"
 output:
   beamer_presentation:
     df_print: kable
@@ -34,9 +34,9 @@ include_graphics("img/kondo.jpg")
 ## What we'll learn
 
 - Structuring our sources as "tidy" data for future analysis
+  - Handling dates
   - Categorization
   - Multiple values
-  - Handling dates
   - Missing or uncertain data
 - Example queries
 - Practical exercise
@@ -71,6 +71,107 @@ artworks <- tibble(
 ```{r}
 messy_data %>% kable() %>% kable_styling(latex_options = "scale_down")
 ```
+
+# Dates
+
+---
+
+There's no one true way to encode date information. It depends on your use-case.
+
+1. "point" events? Or durations?
+2. How precise are your sources?
+3. How varied is that precision?
+
+## Point vs. duration events
+
+```{r}
+tribble(
+  ~date,
+  "1660-03-01",
+  "1661-05-20",
+  "1661-12-05"
+) %>% kable()
+```
+
+
+Point data specifies exactly one point in time; durations have a beginning and an end.
+
+For point data, when in doubt, use `YYYY-MM-DD` format. It's an international standard, everything reads it.
+---
+
+
+```{r}
+tribble(
+  ~beginning, ~end,
+  "1660-03-01", "1660-03-03",
+  "1661-05-19", "1665-05-25",
+  "1661-12-05", "1661-12-05"
+) %>% kable()
+```
+For ranges, you'll want to have a start and end point specified using the same `YYYY-MM-DD` format.
+
+---
+
+```{r}
+tribble(
+  ~start_by, ~end_by, ~note,
+  "1660-03-01", "1660-04-01", "Month precision",
+  "1661-01-01", "1665-12-31", "Year precision",
+  "1661-12-05", "1661-12-05", "Day precision",
+  "1661-12-05", "1661-12-07", "Day ranges"
+) %>% kable()
+```
+
+Depending on your context, it might be more accurate to think in terms of "no sooner than" and "no later than" rather than "beginning" and "end". This can be useful when you have varying precision of dates:
+
+## But don't overdo it
+
+```{r}
+tribble(
+  ~untidy, ~tidy_start, ~tidy_end,
+  "19th century", "1800", "1899",
+  "17th-18th c.", "1600", "1799",
+  "1670s", "1670", "1679",
+  "mid-1800s", "1830", "1870"
+) %>% kable()
+```
+If your sources never have information down to the month or day, or you know that such precision isn't important, then just use a year or century marker. As long as you are _consistent_.
+
+
+---
+```{r}
+tribble(
+  ~untidy, ~tidy_century,
+  "12th c.", 11,
+  "10th century", 9,
+  "200s", 2
+) %>% kable()
+```
+
+The precision that's useful to you will be totally context-dependent. Don't give yourself more work than you need to.
+
+
+## Applying to our original data
+
+We need to make an executive decision about how we want to express "circa" or unbounded claims like "after".
+
+```{r}
+clean_data_dates <- tibble(
+  acq_no = messy_data$acq_no,
+  orig_date = messy_data$date,
+  year_early = c(1636, 1645, 1650, 1622),
+  year_late = c(1680, 1655, 1660, 1622)
+)
+clean_data_dates
+```
+
+Here, I've expanded "circa" to mean around 5 years before or after. "after 1636" could have a number of different meanings depending on the context - maybe we can limit it based on the last year of the studio's activity. 
+
+## Gotchas
+
+- If you're dealing with times, not just dates... then watch out for time zones. Python and R both have specialized libraries for these.
+- When hand entering dates, make sure to validate the dates! You will inevitably enter `YYYY-02-31`, which doesn't exist.
+
 
 # Categorization
 
@@ -312,106 +413,6 @@ date_filtered <- temp_table %>%
 date_filtered %>% kable() %>% kable_styling(latex_options = "scale_down")
 ```
 
-# Dates
-
----
-
-There's no one true way to encode date information. It depends on your use-case.
-
-1. "point" events? Or durations?
-2. How precise are your sources?
-3. How varied is that precision?
-
-## Point vs. duration events
-
-```{r}
-tribble(
-  ~date,
-  "1660-03-01",
-  "1661-05-20",
-  "1661-12-05"
-) %>% kable()
-```
-
-
-Point data specifies exactly one point in time; durations have a beginning and an end.
-
-For point data, when in doubt, use `YYYY-MM-DD` format. It's an international standard, everything reads it.
----
-
-
-```{r}
-tribble(
-  ~beginning, ~end,
-  "1660-03-01", "1660-03-03",
-  "1661-05-19", "1665-05-25",
-  "1661-12-05", "1661-12-05"
-) %>% kable()
-```
-For ranges, you'll want to have a start and end point specified using the same `YYYY-MM-DD` format.
-
----
-
-```{r}
-tribble(
-  ~start_by, ~end_by, ~note,
-  "1660-03-01", "1660-04-01", "Month precision",
-  "1661-01-01", "1665-12-31", "Year precision",
-  "1661-12-05", "1661-12-05", "Day precision",
-  "1661-12-05", "1661-12-07", "Day ranges"
-) %>% kable()
-```
-
-Depending on your context, it might be more accurate to think in terms of "no sooner than" and "no later than" rather than "beginning" and "end". This can be useful when you have varying precision of dates:
-
-## But don't overdo it
-
-```{r}
-tribble(
-  ~untidy, ~tidy_start, ~tidy_end,
-  "19th century", "1800", "1899",
-  "17th-18th c.", "1600", "1799",
-  "1670s", "1670", "1679",
-  "mid-1800s", "1830", "1870"
-) %>% kable()
-```
-If your sources never have information down to the month or day, or you know that such precision isn't important, then just use a year or century marker. As long as you are _consistent_.
-
-
----
-```{r}
-tribble(
-  ~untidy, ~tidy_century,
-  "12th c.", 11,
-  "10th century", 9,
-  "200s", 2
-) %>% kable()
-```
-
-The precision that's useful to you will be totally context-dependent. Don't give yourself more work than you need to.
-
-
-## Applying to our original data
-
-We need to make an executive decision about how we want to express "circa" or unbounded claims like "after".
-
-```{r}
-clean_data_dates <- tibble(
-  acq_no = messy_data$acq_no,
-  orig_date = messy_data$date,
-  year_early = c(1636, 1645, 1650, 1622),
-  year_late = c(1680, 1655, 1660, 1622)
-)
-clean_data_dates
-```
-
-Here, I've expanded "circa" to mean around 5 years before or after. "after 1636" could have a number of different meanings depending on the context - maybe we can limit it based on the last year of the studio's activity. 
-
-## Gotchas
-
-- If you're dealing with times, not just dates... then watch out for time zones. Python and R both have specialized libraries for these.
-- When hand entering dates, make sure to validate the dates! You will inevitably enter `YYYY-02-31`, which doesn't exist.
-
 # Uncertainty
 
 ## Uncertainty
@@ -524,9 +525,9 @@ creations %>%
 
 Source: https://tinyurl.com/cmudh-2019-artcatalog
 
-Group 1: https://tinyurl.com/cmudh-2019-tidy1
+Group 1: https://tinyurl.com/cmudh-2019-tidy3
 
-Group 2: https://tinyurl.com/cmudh-2019-tidy2
+Group 2: https://tinyurl.com/cmudh-2019-tidy4
 
 Working in groups, draft a data scheme for encoding this auction catalog. Aside from the obvious, think about:
 
